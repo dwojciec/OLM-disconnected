@@ -1,0 +1,1 @@
+[{"channels":null,"created_at":"2019-01-24T15:58:54","default":"3.0.0","manifests":["helm"],"name":"redhat-operators/amq-streams","namespace":"redhat-operators","releases":["3.0.0","2.0.0","1.0.5","1.0.4","1.0.3","1.0.2","1.0.1","1.0.0"],"updated_at":"2019-09-09T10:46:35","visibility":"public"}]

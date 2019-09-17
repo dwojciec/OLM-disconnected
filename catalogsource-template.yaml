@@ -1,0 +1,8 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: example-manifests
+  namespace: default
+spec:
+  sourceType: grpc
+  image: {image_name}:latest
