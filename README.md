@@ -89,4 +89,5 @@ To pull the images that you need, you will need to determine the images defined 
 
 Your new operators should now be available in OperatorHub.
 
-
+## Additional informations
+* [Operator Registry](https://github.com/operator-framework/operator-registry) runs in a Kubernetes or OpenShift cluster to provide operator catalog data to Operator Lifecycle Manager.
