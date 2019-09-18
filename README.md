@@ -57,7 +57,7 @@ $ ./create-operator-catalog-img.sh
 ```
 
 During this process the yaml file **catalogsource.yaml** is generated.
-exeample of this file 
+example of this file. 
 
 ```
 apiVersion: operators.coreos.com/v1alpha1
@@ -70,5 +70,23 @@ spec:
   image: <path to the the image>/example-registry:latest
 ```
 
+To use the mirrored images you will need to specify an `ImageContentSourcePolicy` to change the location of the operator image:
+
+Example:
+```
+apiVersion: operator.openshift.io/v1alpha1
+kind: ImageContentSourcePolicy
+metadata:
+  name: example
+spec:
+  repositoryDigestMirrors:
+  - mirrors:
+    - <bastion_host_name>:5000/<namespace>/<name>
+    source: quay.io/<user or organizations>/<namespace>/<name>
+```
+
+To pull the images that you need, you will need to determine the images defined by the operator that you are expecting, and mirror those images by pulling the images and pushing those images into the bastion_host.
+
+Your new operators should now be available in OperatorHub.
 
 
