@@ -1,5 +1,6 @@
 env.sh
+package.txt
 tarball/
 results/
-dwojciech-auth.json
+dwojciec-auth.json
 
