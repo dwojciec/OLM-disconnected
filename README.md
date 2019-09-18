@@ -10,22 +10,21 @@ reference : [Preview of Disconnected (Air-gapped) Install & Update Guide](https:
 
 The work is based on this document 
 
-~~shell
+```
 $ git clone https://github.com/dwojciec/OLM-disconnected.git
-~~
+```
 
 ### Define variables for your env.sh file 
 
 Here is an example about env.sh file that contains information about quay access with your private quay account to push the image created or to access quay with your subscription account  
 
-~~shell
+```
 export QUAY_AUTH_TOKEN=b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K2R3b2pjaWVjcmVkaGF0Y29tMWpjd2VyeGFnc29pbzZuanhid3ZkYXFxbGlqOllGQzNIQ1g4SjlJNlZXUklMVlNCT1U1RjRVVkFGVkM4MTYxMEZCMU5VSlBLVUlCxsxsx
 export AIRGAP_SECRET_JSON='pull-secret-3.json'
 export QUAY_PRIVATE_JSON='dwojciec-auth.json'
 export QUAY_USER=dwojciec
 export CATALOG_OPERATOR_IMAGE=example-registry
-
-~~
+```
 
 | variable | description  |
 |---|---|
@@ -40,9 +39,9 @@ export CATALOG_OPERATOR_IMAGE=example-registry
 ### Retrieve package lists
 This script is creating the list of packages that are available for the default operators sources. This script is generating a json format file called *packages.txt*
 
-~~shell
+```
 $ sh retrieve-package-list.sh
-~~
+```
 
 
 ### Operator Catalog Image
