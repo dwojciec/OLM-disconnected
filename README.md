@@ -45,7 +45,7 @@ $ sh retrieve-package-list.sh
 
 
 ### Operator Catalog Image
-This script is creating a Operator Catalog Image with all operators list generated during the [Retrieve package lists](https://github.com/dwojciec/OLM-disconnected#Retrieve-package-lists) step. This script is running in 4 phases :
+This script is creating a Operator Catalog Image with all operators list generated during the [Retrieve package lists](https://github.com/dwojciec/OLM-disconnected/blob/master/README.md#retrieve-package-lists) step. This script is running in 4 phases :
 
 * Generate the list of operators into *namespaces.txt* file to include into the Operator Catalog Image.
 * you can update the *namespaces.txt* file from another Terminal session if you want to remove some operators from the list.
