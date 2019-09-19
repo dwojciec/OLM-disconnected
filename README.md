@@ -31,7 +31,7 @@ export CATALOG_OPERATOR_IMAGE=example-registry
 
 | variable | description  |
 |---|---|
-| MIRROR_REGISTRY  | 'Y' if you have are a bastion as repository mirror   |
+| MIRROR_REGISTRY  | 'Y' if you have a bastion with a containers repository mirror   |
 | AIRGAP_REG  |  name of the bastion server  |
 | AIRGAP_REPO  | namespace of which all container images are copied   |
 | QUAY_AUTH_TOKEN  | quay.io token you have in the Download pull secret button   |
