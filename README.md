@@ -40,7 +40,7 @@ export CATALOG_OPERATOR_IMAGE=example-registry
 This script is creating the list of packages that are available for the default operators sources. This script is generating a json format file called *packages.txt*
 
 ```
-$ sh retrieve-package-list.sh
+$ ./retrieve-package-list.sh
 ```
 
 

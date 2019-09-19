@@ -1,4 +1,5 @@
 #!/bin/bash
+
 source ./env.sh
 echo "list of operators from redhat-operators"
 curl https://quay.io/cnr/api/v1/packages?namespace=redhat-operators > packages.txt

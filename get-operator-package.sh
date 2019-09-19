@@ -31,8 +31,10 @@ echo $OUT1
 curl -s -H "Authorization: ${QUAY_AUTH_TOKEN}" "https://quay.io/cnr/api/v1/packages/$PKG_NAMESPACE/$PKG_NAME/blobs/sha256/$DIGEST" -o "$OUT1"
 echo "Stored package into $OUT"
 
-mkdir -p ./tarball/manifests
-cp $OUT1 ./tarball/manifests
-cd ./tarball/manifests
+mkdir -p ./tarball/manifests/${PKG_NAMESPACE}-${PKG_NAME}-${RELEASE}
+cp $OUT1 ./tarball/manifests/${PKG_NAMESPACE}-${PKG_NAME}-${RELEASE}/
+echo "cp $OUT1 ./tarball/manifests/${PKG_NAMESPACE}-${PKG_NAME}-${RELEASE}/"
+cd ./tarball/manifests/${PKG_NAMESPACE}-${PKG_NAME}-${RELEASE}
+echo "cd ./tarball/manifests/${PKG_NAMESPACE}-${PKG_NAME}-${RELEASE}"
 tar xvzf  $OUT 
 rm $OUT

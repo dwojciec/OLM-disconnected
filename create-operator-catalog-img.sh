@@ -9,6 +9,34 @@ sed -e "s${s}^${s}${str}${s}" namespaces.txt > namespaces1.sh
 chmod +x namespaces1.sh
 ./namespaces1.sh
 rm namespaces1.sh
+# Create list of images attached to operator to download
+find . -name bundle.yaml -print > bundle-list.txt
+find . -type f -name "bundle.yaml" -exec grep "image: " {} \; > images-list.txt 
+# remove image: into the file generated
+cat images-list.txt  | sed -e 's/^[ \t]*//' > image-full.txt
+sed -i "s+image:++g" image-full.txt
+# Pull images
+awk -f transform-pull.awk image-full.txt > images1-list.txt
+# Tag images
+awk -f transform-tag.awk image-full.txt > images1-tag.txt
+sed -i "s+/  XXXXX+  XXXXX+g" images1-tag.txt
+str1=$(echo "podman pull --authfile ${AIRGAP_SECRET_JSON} " | sed -e "s|[${s}&\]|\\\\&|g")
+sed -e "s${s}^${s}${str1}${s}" images1-list.txt > images-pull.sh
+chmod +x images-pull.sh
+./images-pull.sh
+rm images-pull.sh
+# Tag images
+if [ $MIRROR_REGISTRY = "Y" ]
+then
+  str1=$(echo "podman tag " | sed -e "s|[${s}&\]|\\\\&|g")
+  sed -e "s${s}^${s}${str1}${s}" images1-tag.txt > images-tag.sh
+  str3=$(echo "${AIRGAP_REG}/${AIRGAP_REPO}")
+  sed -i "s+XXXXXXXXXX+${str3}+g" images-tag.sh
+  chmod +x images-tag.sh
+  ./images-tag.sh
+  rm images-tag.sh 
+fi
+
 cp Dockerfile ./tarball/.
 cp build-catalog-registry.sh ./tarball/.
 cd ./tarball
@@ -29,6 +57,12 @@ push_image()
 echo "push image to quay.io :quay.io/${QUAY_USER}/${CATALOG_OPERATOR_IMAGE}:latest"
 echo "podman push --authfile ${QUAY_PRIVATE_JSON} ${CATALOG_OPERATOR_IMAGE}:latest quay.io/${QUAY_USER}/${CATALOG_OPERATOR_IMAGE}:latest"
 podman push --authfile ${QUAY_PRIVATE_JSON} ${CATALOG_OPERATOR_IMAGE}:latest quay.io/${QUAY_USER}/${CATALOG_OPERATOR_IMAGE}:latest
+
+if [ $MIRROR_REGISTRY = "Y" ]
+then
+  echo "podman tag ${CATALOG_OPERATOR_IMAGE}:latest ${AIRGAP_REG}/${AIRGAP_REPO}/${CATALOG_OPERATOR_IMAGE}:latest"
+  podman tag ${CATALOG_OPERATOR_IMAGE}:latest ${AIRGAP_REG}/${AIRGAP_REPO}/${CATALOG_OPERATOR_IMAGE}:latest
+fi
 }
  
 source ./env.sh
