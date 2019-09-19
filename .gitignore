@@ -1,4 +1,6 @@
 *.txt
+images-pull.sh
+images-tag.sh
 env.sh
 images-list.txt
 bundle-list.txt

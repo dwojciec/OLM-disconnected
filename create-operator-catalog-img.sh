@@ -17,26 +17,33 @@ cat images-list.txt  | sed -e 's/^[ \t]*//' > image-full.txt
 sed -i "s+image:++g" image-full.txt
 # Pull images
 awk -f transform-pull.awk image-full.txt > images1-list.txt
-# Tag images
-awk -f transform-tag.awk image-full.txt > images1-tag.txt
-sed -i "s+/  XXXXX+  XXXXX+g" images1-tag.txt
 str1=$(echo "podman pull --authfile ${AIRGAP_SECRET_JSON} " | sed -e "s|[${s}&\]|\\\\&|g")
 sed -e "s${s}^${s}${str1}${s}" images1-list.txt > images-pull.sh
 chmod +x images-pull.sh
-./images-pull.sh
-rm images-pull.sh
+read -p "Do you want to download all containers images references in the operators catalog ? <y/N> " prompt
+if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+then
+  ./images-pull.sh
+  rm images-pull.sh
+fi
 # Tag images
 if [ $MIRROR_REGISTRY = "Y" ]
 then
+# Tag images
+  awk -f transform-tag.awk image-full.txt > images1-tag.txt
+  sed -i "s+/  XXXXX+  XXXXX+g" images1-tag.txt
   str1=$(echo "podman tag " | sed -e "s|[${s}&\]|\\\\&|g")
   sed -e "s${s}^${s}${str1}${s}" images1-tag.txt > images-tag.sh
-  str3=$(echo "${AIRGAP_REG}/${AIRGAP_REPO}")
+  str3=$(echo "${AIRGAP_REG}")
   sed -i "s+XXXXXXXXXX+${str3}+g" images-tag.sh
   chmod +x images-tag.sh
-  ./images-tag.sh
-  rm images-tag.sh 
+  read -p "Do you want to tag all containers images downloaded ? <y/N> " prompt
+  if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+then
+    ./images-tag.sh
+    rm images-tag.sh
+  fi
 fi
-
 cp Dockerfile ./tarball/.
 cp build-catalog-registry.sh ./tarball/.
 cd ./tarball
