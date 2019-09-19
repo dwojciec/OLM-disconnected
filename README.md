@@ -19,15 +19,21 @@ $ git clone https://github.com/dwojciec/OLM-disconnected.git
 Here is an example about env.sh file that contains information about quay access with your private quay account to push the image created or to access quay with your subscription account  
 
 ```
+export MIRROR_REGISTRY='Y'
+export AIRGAP_REG='bastion.registry.example.com:5000'
+export AIRGAP_REPO='ocp4/openshift4'
 export QUAY_AUTH_TOKEN=b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K2R3b2pjaWVjcmVkaGF0Y29tMWpjd2VyeGFnc29pbzZuanhid3ZkYXFxbGlqOllGQzNIQ1g4SjlJNlZXUklMVlNCT1U1RjRVVkFGVkM4MTYxMEZCMU5VSlBLVUlCxsxsx
 export AIRGAP_SECRET_JSON='pull-secret-3.json'
-export QUAY_PRIVATE_JSON='dwojciec-auth.json'
+export QUAY_PRIVATE_JSON='example-auth.json'
 export QUAY_USER=dwojciec
 export CATALOG_OPERATOR_IMAGE=example-registry
 ```
 
 | variable | description  |
 |---|---|
+| MIRROR_REGISTRY  | 'Y' if you have are a bastion as repository mirror   |
+| AIRGAP_REG  |  name of the bastion server  |
+| AIRGAP_REPO  | namespace of which all container images are copied   |
 | QUAY_AUTH_TOKEN  | quay.io token you have in the Download pull secret button   |
 | AIRGAP_SECRET_JSON  | Create a file with the pull secret content  |
 | QUAY_PRIVATE_JSON  | quay token needed to push the image created. Account Setting -> CLI Password : Generate Encrypted Password -> Docker Configuration -> Download <user or Organisation> - auth.json file|
