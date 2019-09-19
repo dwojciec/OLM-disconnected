@@ -55,7 +55,7 @@ This script is creating a Operator Catalog Image with all operators list generat
 
 * Generate the list of operators into *namespaces.txt* file to include into the Operator Catalog Image.
 * you can update the *namespaces.txt* file from another Terminal session if you want to remove some operators from the list.
-* Pull all container images using by Operators
+* *Optional* Pull locally all container images using by Operators list.
 * *Optional* : Tag all container images pulled with the bastion server reference 
 * Build of the Operator Catalog image container.
 * Push the image to your own Quay repository to share it with other people.
